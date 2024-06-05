@@ -19,7 +19,7 @@ header {
     flex-direction: column;
     align-items: center;
     z-index: 1000;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 header.scrolled {
@@ -195,7 +195,7 @@ section.active {
     color: #fff;
     font-size: 1em;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 visitor-form button:hover {
