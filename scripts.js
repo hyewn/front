@@ -1,125 +1,67 @@
-const host = "http://18.235.40.243:8000";
-const todosContainer = document.querySelector('.todos-container');
+document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav ul li a");
+    const progressBar = document.querySelector("#progress-bar span");
 
-window.addEventListener('DOMContentLoaded', function () {
-    getTodos();
-});
-
-async function getTodos() {
-    try {
-        const response = await fetch(`${host}/todo`);
-        const todos = await response.json();
-        renderTodos(todos);
-    } catch (error) {
-        console.error('Error fetching todos:', error);
-    }
-}
-
-function renderTodos(todos) {
-    todosContainer.innerHTML = '';
-    todos.forEach(todo => {
-        const todoDiv = document.createElement('div');
-        todoDiv.classList.add('todo-item');
-
-        const todoHeader = document.createElement('div');
-        todoHeader.classList.add('todo-header');
-
-        const todoAuthor = document.createElement('span');
-        todoAuthor.classList.add('todo-author');
-        todoAuthor.textContent = todo.author;
-
-        const todoTime = document.createElement('span');
-        todoTime.classList.add('todo-time');
-        todoTime.textContent = todo.time;
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.textContent = 'x';
-
-        deleteBtn.addEventListener('click', function () {
-            deleteTodo(todo.id);
-        });
-
-        todoHeader.appendChild(todoAuthor);
-        todoHeader.appendChild(todoTime);
-        todoHeader.appendChild(deleteBtn);
-
-        const todoText = document.createElement('span');
-        todoText.textContent = todo.item;
-
-        todoDiv.appendChild(todoHeader);
-        todoDiv.appendChild(todoText);
-        todosContainer.appendChild(todoDiv);
-    });
-}
-
-const authorInput = document.querySelector('.author-input');
-const todoInput = document.querySelector('.todo-input');
-const add_guestbook_btn = document.querySelector("#add_guestbook");
-
-add_guestbook_btn.addEventListener('click', function (event) {
-    event.preventDefault();
-    addTodo();
-});
-
-async function addTodo() {
-    const author = authorInput.value.trim();
-    const title = todoInput.value.trim();
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleString('ko-KR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-    });
-
-    const todoData = {
-        id: null,
-        author: author,
-        item: title,
-        time: formattedDate
+    const options = {
+        threshold: 0.5
     };
 
-    if (author === '' || title === '') {
-        alert('Name and Message are required!');
-        return;
-    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
 
-    try {
-        const response = await fetch(`${host}/todo`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(todoData)
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href').substring(1) === entry.target.id) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            } else {
+                entry.target.classList.remove("active");
+            }
         });
-        if (response.ok) {
-            const newTodo = await response.json();
-            authorInput.value = '';
-            todoInput.value = '';
-            getTodos();
+    }, options);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    window.addEventListener("scroll", () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progressWidth = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = progressWidth + "%";
+    });
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            document.querySelector("header").classList.add("scrolled");
         } else {
-            console.error('Failed to add todo:', response.statusText);
+            document.querySelector("header").classList.remove("scrolled");
         }
-    } catch (error) {
-        console.error('Error adding todo:', error);
-    }
+    });
+
+    document.querySelectorAll('.profile-pic, .hobbies-img, .about-overlay, .hobbies-overlay').forEach(element => {
+        element.addEventListener('click', function() {
+            const img = this.tagName === 'IMG' ? this : this.previousElementSibling;
+            openModal(img);
+        });
+    });
+
+    document.querySelector('.close').addEventListener('click', closeModal);
+});
+
+function openModal(img) {
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    modal.style.display = "block";
+    modalImg.src = img.src;
 }
 
-async function deleteTodo(todoId) {
-    try {
-        const response = await fetch(`${host}/todo/${todoId}`, {
-            method: 'DELETE'
-        });
-        if (response.ok) {
-            getTodos();
-        } else {
-            console.error('Failed to delete todo:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error deleting todo:', error);
-    }
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
 }
