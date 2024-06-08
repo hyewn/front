@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function getTodos() {
         const response = await fetch('http://18.235.40.243:8000/todo');
         const todos = await response.json();
-        
+
         console.log('Fetched data:', todos); // 추가된 디버깅 코드
 
         const todoContainer = document.getElementById('todos-container');
