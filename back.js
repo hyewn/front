@@ -33,7 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function getTodos() {
         const response = await fetch('http://18.235.40.243:8000/todo');
-        const todos = await response.json();
+        const data = await response.json();
+        
+        console.log('Fetched data:', data); // 추가된 디버깅 코드
+        
+        if (!data || !data.todos) {
+            console.error('Invalid response format:', data);
+            return;
+        }
+
+        const todos = data.todos;
 
         const todoContainer = document.getElementById('todos-container');
         if (!todoContainer) {
@@ -43,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         todoContainer.innerHTML = '';
 
-        todos.todos.forEach(todo => {
+        todos.forEach(todo => {
             const todoElement = document.createElement('div');
             todoElement.classList.add('todo-item');
             todoElement.innerHTML = `
