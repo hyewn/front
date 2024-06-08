@@ -8,9 +8,10 @@ body {
 }
 
 header {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  position: relative;
+  top: 20px;
+  left: 20px;
+  margin-bottom: 20px;
 }
 
 .home-link {
@@ -18,8 +19,9 @@ header {
   text-decoration: none;
   font-size: 16px;
   background-color: #444;
-  padding: 5px 10px;
+  padding: 10px 20px;
   border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 .home-link:hover {
@@ -105,10 +107,11 @@ h1 {
   color: #111;
   cursor: pointer;
   text-align: center; 
+  transition: background-color 0.3s;
 }
 
 #add_guestbook:hover {
-  background-color: #ffd699;
+  background-color: #e6b800;
 }
 
 .todos-container {
