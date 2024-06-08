@@ -1,85 +1,83 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const addGuestbookButton = document.getElementById('add_guestbook');
+document.getElementById('add_guestbook').addEventListener('click', async () => {
+    const authorInput = document.querySelector('.author-input').value;
+    const itemInput = document.querySelector('.todo-input').value;
+    const time = new Date().toLocaleString();
 
-    addGuestbookButton.addEventListener('click', async () => {
-        const authorInput = document.querySelector('.author-input');
-        const todoInput = document.querySelector('.todo-input');
-        const author = authorInput.value;
-        const item = todoInput.value;
+    const todo = {
+        author: authorInput,
+        item: itemInput,
+        time: time,
+    };
 
-        if (author.trim() === "" || item.trim() === "") {
-            alert("Name and message cannot be empty.");
-            return;
-        }
+    console.log("Sending todo:", todo);
 
-        const time = new Date().toLocaleString();
-        const todo = { author, item, time };
-
-        console.log('Sending todo:', todo); // 디버깅을 위해 추가
-
+    try {
         const response = await fetch('http://18.235.40.243:8000/todo', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(todo)
+            body: JSON.stringify(todo),
         });
 
         if (response.ok) {
-            const result = await response.json();
-            console.log('Todo added:', result);
-            getTodos(); // 갱신된 TODO 리스트를 가져옵니다
-            authorInput.value = "";
-            todoInput.value = "";
+            const data = await response.json();
+            console.log("Todo added:", data);
+            await getTodos();
         } else {
             console.error('Failed to add todo:', response.statusText);
         }
-    });
-
-    async function getTodos() {
-        const response = await fetch('http://18.235.40.243:8000/todo');
-        const todos = await response.json();
-
-        console.log('Fetched data:', todos); // 추가된 디버깅 코드
-
-        const todoContainer = document.getElementById('todos-container');
-        if (!todoContainer) {
-            console.error('Cannot find the container element');
-            return;
-        }
-        
-        todoContainer.innerHTML = '';
-
-        todos.forEach(todo => {
-            const todoElement = document.createElement('div');
-            todoElement.classList.add('todo-item');
-            todoElement.innerHTML = `
-                <div class="todo-header">
-                    <div class="todo-author">${todo.author}</div>
-                    <div class="todo-time">${todo.time}</div>
-                    <button class="delete-btn" data-id="${todo.id}">&times;</button>
-                </div>
-                <div class="todo-content">${todo.item}</div>
-            `;
-            todoContainer.appendChild(todoElement);
-        });
-
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', async () => {
-                const todoId = button.getAttribute('data-id');
-                const response = await fetch(`http://18.235.40.243:8000/todo/${todoId}`, {
-                    method: 'DELETE'
-                });
-
-                if (response.ok) {
-                    console.log('Todo deleted');
-                    getTodos(); // 갱신된 TODO 리스트를 가져옵니다
-                } else {
-                    console.error('Failed to delete todo:', response.statusText);
-                }
-            });
-        });
+    } catch (error) {
+        console.error('Failed to add todo:', error);
     }
-
-    getTodos();
 });
+
+async function getTodos() {
+    try {
+        const response = await fetch('http://18.235.40.243:8000/todo');
+        if (response.ok) {
+            const todos = await response.json();
+            console.log("Fetched data:", todos);
+
+            const todosContainer = document.querySelector('.todos-container');
+            todosContainer.innerHTML = '';
+            todos.forEach(todo => {
+                const todoItem = document.createElement('div');
+                todoItem.classList.add('todo-item');
+                todoItem.innerHTML = `
+                    <div class="todo-header">
+                        <span class="todo-author">${todo.author}</span>
+                        <span class="todo-time">${todo.time}</span>
+                        <button class="delete-btn" onclick="deleteTodo(${todo.id})">&times;</button>
+                    </div>
+                    <div class="todo-item-content">${todo.item}</div>
+                `;
+                todosContainer.appendChild(todoItem);
+            });
+        } else {
+            console.error('Failed to fetch todos:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Failed to fetch todos:', error);
+    }
+}
+
+async function deleteTodo(todoId) {
+    try {
+        const response = await fetch(`http://18.235.40.243:8000/todo/${todoId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Todo deleted:", data);
+            await getTodos();
+        } else {
+            console.error('Failed to delete todo:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Failed to delete todo:', error);
+    }
+}
+
+getTodos();
