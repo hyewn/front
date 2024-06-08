@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>김혜원에 대해서</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
 <body>
     <div id="progress-bar"><span></span></div>
@@ -13,75 +14,81 @@
         <nav>
             <ul>
                 <li><a href="#main" class="nav-link">Home</a></li>
-                <li><a href="#introduce" class="nav-link">Introduce</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#projects" class="nav-link">What I love
-                </a></li>
-                <li><a href="#visitor" class="nav-link">Visitor</a></li>
+                <li><a href="#hobbies" class="nav-link">What I Love</a></li>
+                <li><a href="#guestbook" class="nav-link">Guestbook</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <section id="main" class="main-bg">
-            <h1>ABOUT HYEWON KIM</h1>
-            <p>Welcome To My Homepage</p>
-        </section>
-        <section id="introduce" class="introduce-bg">
-            <h2>Introduce</h2>
-            <div class="photo-gallery">
-                <img src="IMG_0139.jpg" alt="증명사진" class="profile-pic">
+            <div class="main-content">
+                <h1>Welcome to My Homepage</h1>
             </div>
-            <table class="intro-table">
-                <tr>
-                    <th>이름</th>
-                    <td>김혜원</td>
-                </tr>
-                <tr>
-                    <th>나이</th>
-                    <td>22세 (만 20세)</td>
-                </tr>
-                <tr>
-                    <th>생일</th>
-                    <td>2003년 08월 31일</td>
-                </tr>
-                <tr>
-                    <th>학교</th>
-                    <td>광운대학교 정보융합학부 재학</td>
-                </tr>
-            </table>
+        </section>
+        <section id="about" class="about-bg">
+            <h2>About</h2>
+            <div class="about-content">
+                <div class="about-image-container">
+                    <img src="IMG_0139.jpg" alt="증명사진" class="profile-pic">
+                    <div class="about-overlay">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="about-info">
+                    <p><strong>이름:</strong> 김혜원</p>
+                    <p><strong>나이:</strong> 22세 (만 20세)</p>
+                    <p><strong>생일:</strong> 2003년 08월 31일</p>
+                    <p><strong>학력:</strong> 광운대학교 정보융합학부 재학</p>
+                </div>
+            </div>
         </section>
         <section id="experience" class="experience-bg">
             <h2>Experience</h2>
-            <h3>자격사항</h3>
-            <p><strong>SQL 개발자</strong> - 한국데이터베이스진흥원 - 합격 - 2024-04-05</p>
-            <h3>수상경력</h3>
-            <p><strong>유학생 어울림(멘토링) 프로그램 후기공모전</strong> - 광운대학교 - 2023-12-28</p>
-            <h3>주요활동 및 사회경험</h3>
-            <p><strong>청소년서포터즈</strong> - 시립노원청소년미래진로센터 - 2024-03-08 ~ 2024-08-31</p>
-        </section>
-        <section id="projects" class="projects-bg">
-            <h2>What I love - Tennis</h2>
-            <div class="project">
-                <h3>Tennis</h3>
-                <p>테니스는 나에게 더 큰 의미를 부여하는 데 있어서 단순히 운동이상의 의미를 갖고 있습니다. 그것은 내가 표현하는 한 방법이며, 힘든 날에는 마음의 안정을 찾고, 기쁜 날에는 즐거움을 더하며, 새로운 도전에는 자신감을 심어줍니다. 그것은 무엇보다도 나 자신을 발견하고, 성장하며, 꿈을 이루어나가는 과정에서 저와 가장 높은 상호작용을 이루는 취미입니다. 테니스는 내게 더 많은 것을 알게 해주며, 그리고 다른 이들에게 나의 열정과 흥미를 전달하는 좋은 수단입니다.</p>
+            <div class="experience-content">
+                <h3>자격사항</h3>
+                <p><strong>SQL 개발자</strong> - 한국데이터베이스진흥원 - 합격 - 2024-04-05</p>
+                <h3>수상경력</h3>
+                <p><strong>유학생 어울림(멘토링) 프로그램 후기공모전</strong> - 광운대학교 - 2023-12-28</p>
+                <h3>주요활동 및 사회경험</h3>
+                <p><strong>청소년서포터즈</strong> - 시립노원청소년미래진로센터 - 2024-03-08 ~ 2024-08-31</p>
             </div>
         </section>
-        <section id="visitor" class="visitor">
-            <h2>Visitor</h2>
-            <form action="#" method="post" class="visitor-form">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+        <section id="hobbies" class="hobbies-bg">
+            <h2>What I Love</h2>
+            <div class="hobbies-content">
+                <div class="hobbies-image-container">
+                    <img src="IMG_9715.jpeg" alt="여행" class="hobbies-img">
+                    <div class="hobbies-overlay">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <p> 저는 여행을 통해 삶의 진정한 매력을 발견합니다. 각 여행지는 그 자체로 한 편의 이야기이며,<br>그곳에서 찍은 사진들은 행복한 기억을 선명하게 떠올리게 합니다. 길을 걸으며 느꼈던 날씨,
+                <br>사진에 전부 담을 수 없었던 풍경, 그리고 그 순간의 감정들은 제 마음속에 깊이 새겨집니다.</p>
+
+                 <p> 새로운 여행을 계획할 때마다 가슴이 설레며, 일상 속에서 그 여행을 기다리는 시간조차 소중한 행복이 됩니다.
+                <br>여행은 단순한 휴식이 아니라, 저에게는 더 나은 삶을 향한 동력이자, 무한한 가능성을 열어주는 창문입니다.</p>
+            </div>
+        </section>
+        <section id="guestbook" class="guestbook-bg">
+            <h2>Guestbook</h2>
+            <div class="guestbook-content">
+                <p>Leave your message in the guestbook:</p>
+                <a href="http://18.235.40.243:5500/guestbook.html" class="guestbook-link">Go to Guestbook</a>
+            </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 김혜원. All rights reserved.</p>
     </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>

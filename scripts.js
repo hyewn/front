@@ -43,4 +43,25 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector("header").classList.remove("scrolled");
         }
     });
+
+    document.querySelectorAll('.profile-pic, .hobbies-img, .about-overlay, .hobbies-overlay').forEach(element => {
+        element.addEventListener('click', function() {
+            const img = this.tagName === 'IMG' ? this : this.previousElementSibling;
+            openModal(img);
+        });
+    });
+
+    document.querySelector('.close').addEventListener('click', closeModal);
 });
+
+function openModal(img) {
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    modal.style.display = "block";
+    modalImg.src = img.src;
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
