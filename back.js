@@ -24,6 +24,8 @@ document.getElementById('add_guestbook').addEventListener('click', async () => {
             const data = await response.json();
             console.log("Todo added:", data);
             await getTodos();
+            document.querySelector('.author-input').value = ''; // 입력 후 필드 비우기
+            document.querySelector('.todo-input').value = ''; // 입력 후 필드 비우기
         } else {
             console.error('Failed to add todo:', response.statusText);
         }
