@@ -36,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const todos = await response.json();
 
         const todoContainer = document.getElementById('todos-container');
+        if (!todoContainer) {
+            console.error('Cannot find the container element');
+            return;
+        }
+        
         todoContainer.innerHTML = '';
 
         todos.todos.forEach(todo => {
