@@ -1,4 +1,4 @@
-const host = "http://18.235.40.243:8000";
+const host = "http://18.235.40.243:8085";
 const todosContainer = document.querySelector('.todos-container');
 
 window.addEventListener('DOMContentLoaded', function () {
