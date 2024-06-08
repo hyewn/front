@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const time = new Date().toLocaleString();
         const todo = { author, item, time };
 
+        console.log('Sending todo:', todo); // 디버깅을 위해 추가
+
         const response = await fetch('http://18.235.40.243:8000/todo', {
             method: 'POST',
             headers: {
