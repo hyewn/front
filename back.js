@@ -12,12 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const time = new Date().toLocaleString();
+        const todo = { author, item, time };
+
         const response = await fetch('http://18.235.40.243:8000/todo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ author, item, time: new Date().toLocaleString() })
+            body: JSON.stringify(todo)
         });
 
         if (response.ok) {
