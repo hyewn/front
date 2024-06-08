@@ -7,6 +7,25 @@ body {
   overflow-x: hidden;
 }
 
+header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.home-link {
+  color: #ffebcc;
+  text-decoration: none;
+  font-size: 16px;
+  background-color: #444;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.home-link:hover {
+  background-color: #333;
+}
+
 .container {
   max-width: 800px;
   margin: 100px auto;
@@ -35,9 +54,22 @@ h1 {
   width: 100%;
 }
 
-.author-input {
+.author-input{
   margin-right: 10px;
   height: 35px; 
+}
+
+.todo-input {
+  margin-right: 10px;
+  height: 35px; 
+  font-size: 14px;
+}
+
+#add_guestbook {
+  height: 47px; 
+}
+
+.author-input {
   width: 90px; 
   padding: 5px;
   border: 1px solid #ccc;
@@ -48,9 +80,6 @@ h1 {
 }
 
 .todo-input {
-  margin-right: 10px;
-  height: 35px; 
-  font-size: 14px;
   width: 600px; 
   padding: 5px;
   border: 1px solid #ccc;
@@ -69,7 +98,6 @@ h1 {
 
 #add_guestbook {
   width: 100px; 
-  height: 47px;
   padding: 0; 
   background-color: #ffebcc;
   border: none;
@@ -101,7 +129,6 @@ h1 {
   background-color: rgba(50, 50, 50, 0.8);
   width: 100%;
   max-width: 800px;
-  margin-bottom: 10px;
 }
 
 .todo-header {
@@ -122,11 +149,6 @@ h1 {
 
 .todo-time {
   font-size: 0.8em;
-}
-
-.todo-content {
-  margin: 10px 0;
-  white-space: pre-wrap; /* 개행문자를 표시해줍니다 */
 }
 
 .delete-btn {
