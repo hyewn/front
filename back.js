@@ -97,3 +97,43 @@ function deleteTodo(todoId) {
     localStorage.setItem('todos', JSON.stringify(todos));
     getTodos();
 }
+
+async function addTodo() {
+    const authorInput = document.querySelector('.author-input');
+    const todoInput = document.querySelector('.todo-input');
+    const author = authorInput.value;
+    const item = todoInput.value;
+
+    const response = await fetch('http://18.235.40.243:8000/todo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ author, item })
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        console.log('Todo added:', result);
+        getTodos(); 
+    } else {
+        console.error('Failed to add todo:', response.statusText);
+    }
+}
+
+async function getTodos() {
+    const response = await fetch('http://18.235.40.243:8000/todo');
+    const todos = await response.json();
+
+    const todoContainer = document.querySelector('.todos-container');
+    todoContainer.innerHTML = '';
+
+    todos.forEach(todo => {
+        const todoElement = document.createElement('div');
+        todoElement.textContent = `${todo.author}: ${todo.item} (${todo.time})`;
+        todoContainer.appendChild(todoElement);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', getTodos);
+
