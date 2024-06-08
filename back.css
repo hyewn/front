@@ -98,7 +98,7 @@ h1 {
 }
 
 #add_guestbook:hover {
-  background-color: #e6b800;
+  background-color: #ffd699; /* 덜 진한 색상 */
   color: #111;
 }
 
@@ -154,5 +154,5 @@ h1 {
 }
 
 .delete-btn:hover {
-  color: #e6b800;
+  color: #ffd699; /* 덜 진한 색상 */
 }
