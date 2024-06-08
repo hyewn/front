@@ -33,16 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function getTodos() {
         const response = await fetch('http://18.235.40.243:8000/todo');
-        const data = await response.json();
+        const todos = await response.json();
         
-        console.log('Fetched data:', data); // 추가된 디버깅 코드
-        
-        if (!data || !data.todos) {
-            console.error('Invalid response format:', data);
-            return;
-        }
-
-        const todos = data.todos;
+        console.log('Fetched data:', todos); // 추가된 디버깅 코드
 
         const todoContainer = document.getElementById('todos-container');
         if (!todoContainer) {
