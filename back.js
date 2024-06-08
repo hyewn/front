@@ -5,14 +5,9 @@ window.addEventListener('DOMContentLoaded', function () {
     getTodos();
 });
 
-async function getTodos() {
-    try {
-        const response = await fetch(`${host}/todo`);
-        const todos = await response.json();
-        renderTodos(todos);
-    } catch (error) {
-        console.error('Error fetching todos:', error);
-    }
+function getTodos() {
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
+    renderTodos(todos);
 }
 
 function renderTodos(todos) {
@@ -58,11 +53,11 @@ const todoInput = document.querySelector('.todo-input');
 const add_guestbook_btn = document.querySelector("#add_guestbook");
 
 add_guestbook_btn.addEventListener('click', function (event) {
-    event.preventDefault();
+    event.preventDefault(); // 폼의 기본 제출 동작을 막음
     addTodo();
 });
 
-async function addTodo() {
+function addTodo() {
     const author = authorInput.value.trim();
     const title = todoInput.value.trim();
     const currentDate = new Date();
@@ -76,8 +71,9 @@ async function addTodo() {
         hour12: false
     });
 
-    const todoData = {
-        id: null,
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    let todoData = {
+        id: todos.length ? todos[todos.length - 1].id + 1 : 1,
         author: author,
         item: title,
         time: formattedDate
@@ -88,38 +84,16 @@ async function addTodo() {
         return;
     }
 
-    try {
-        const response = await fetch(`${host}/todo`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(todoData)
-        });
-        if (response.ok) {
-            const newTodo = await response.json();
-            authorInput.value = '';
-            todoInput.value = '';
-            getTodos();
-        } else {
-            console.error('Failed to add todo:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error adding todo:', error);
-    }
+    todos.push(todoData);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    authorInput.value = '';
+    todoInput.value = '';
+    getTodos();
 }
 
-async function deleteTodo(todoId) {
-    try {
-        const response = await fetch(`${host}/todo/${todoId}`, {
-            method: 'DELETE'
-        });
-        if (response.ok) {
-            getTodos();
-        } else {
-            console.error('Failed to delete todo:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error deleting todo:', error);
-    }
+function deleteTodo(todoId) {
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    todos = todos.filter(todo => todo.id !== todoId);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    getTodos();
 }
